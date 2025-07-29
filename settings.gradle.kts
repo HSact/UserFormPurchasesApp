@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "UserFormPurchasesApp"
 include(":app")
+include(":domain")
+include(":data")
