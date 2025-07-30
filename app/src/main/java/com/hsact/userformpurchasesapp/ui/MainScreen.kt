@@ -12,7 +12,6 @@ import com.hsact.userformpurchasesapp.ui.registration.RegistrationScreen
 
 @Composable
 fun MainScreen(
-//    viewModel: PurchasesScreenViewModel,
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
@@ -33,15 +32,7 @@ fun MainScreen(
             })
         }
         composable(Screen.Purchases.route) {
-            PurchasesScreen(/*viewModel*/)
+            PurchasesScreen()
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun MainScreenPreview() {
-//    UserFormPurchasesAppTheme {
-//        MainScreen("Android")
-//    }
-//}
