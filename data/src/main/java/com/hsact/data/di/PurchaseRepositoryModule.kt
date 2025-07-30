@@ -10,10 +10,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+abstract class PurchaseRepositoryModule {
 
     @Binds
     @Singleton
+    @Suppress("unused")
     abstract fun bindPurchaseRepository(
         impl: PurchaseRepositoryImpl
     ): PurchaseRepository
