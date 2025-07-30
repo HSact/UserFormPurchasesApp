@@ -5,16 +5,19 @@ import com.hsact.data.mapper.toDomain
 import com.hsact.domain.model.Purchase
 import com.hsact.domain.repository.PurchaseRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PurchaseRepositoryImpl @Inject constructor(
     private val dataSource: PurchaseDataSource
 ) : PurchaseRepository {
 
-    override suspend fun getPurchases(): List<Purchase> {
-        return withContext(Dispatchers.IO) {
-            dataSource.loadFromAssets().map { it.toDomain() }
-        }
+    override fun getPurchases(): Flow<List<Purchase>> {
+        return dataSource
+            .loadFromAssets()
+            .map { list -> list.map { it.toDomain() } }
+            .flowOn(Dispatchers.IO)
     }
 }
