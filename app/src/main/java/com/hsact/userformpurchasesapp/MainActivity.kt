@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.hsact.userformpurchasesapp.ui.MainScreen
 import com.hsact.userformpurchasesapp.ui.theme.UserFormPurchasesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
@@ -26,22 +27,13 @@ class MainActivity : ComponentActivity() {
             UserFormPurchasesAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MainScreen(
-                        viewModel = viewModel,
-                        name = "Android",
+//                        viewModel = viewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
     }
-}
-
-@Composable
-fun MainScreen(viewModel: MainViewModel, name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 //@Preview(showBackground = true)
