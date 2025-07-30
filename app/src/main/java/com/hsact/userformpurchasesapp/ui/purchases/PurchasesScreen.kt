@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import com.hsact.userformpurchasesapp.R
 
 @Composable
-fun PurchasesScreen(/*viewModel: PurchaseScreenViewModel*/) {
+fun PurchasesScreen() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(stringResource(R.string.my_purchases))
     }

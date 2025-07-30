@@ -8,10 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.hsact.userformpurchasesapp.R
 
 @Composable
-fun RegistrationScreen(onFinish: () -> Unit) {
+fun RegistrationScreen (
+    onFinish: () -> Unit,
+    viewModel: RegistrationViewModel = hiltViewModel<RegistrationViewModel>()
+) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(stringResource(R.string.bank_clients_registration))
         Button(onClick = onFinish) {

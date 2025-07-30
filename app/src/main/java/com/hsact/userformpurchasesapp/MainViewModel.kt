@@ -13,14 +13,5 @@ class MainViewModel @Inject constructor(
     private val getPurchasesUseCase: GetPurchasesUseCase,
     private val getUserDataUseCase: GetUserDataUseCase
 ) : ViewModel() {
-    init {
-        viewModelScope.launch {
-            val a = getPurchasesUseCase()
-            println(a)
-        }
-        viewModelScope.launch {
-            val a = getUserDataUseCase()
-            println(a)
-        }
-    }
+
 }
