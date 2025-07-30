@@ -5,4 +5,6 @@
     <string name="button_continue">Продолжить</string>
     <string name="bank_clients_registration">Регистрация для клиентов банка</string>
     <string name="my_purchases">Мои покупки</string>
+    <string name="participant_number">Номер участника</string>
+    <string name="number_that_you_recived">Номер из 16 цифр, который вы получили от банка</string>
 </resources>
