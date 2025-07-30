@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">UserFormPurchasesApp</string>
+    <string name="profile">Профиль</string>
+    <string name="registration">Регистрация</string>
+    <string name="button_continue">Продолжить</string>
+    <string name="bank_clients_registration">Регистрация для клиентов банка</string>
+    <string name="my_purchases">Мои покупки</string>
 </resources>
