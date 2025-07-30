@@ -1,16 +1,13 @@
 package com.hsact.userformpurchasesapp.ui.screens
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,17 +31,12 @@ fun MainScreen(
 
     val (title, showBackButton) = when (currentDestination?.route) {
         Screen.Profile.route -> stringResource(R.string.profile) to false
-        Screen.Registration.route -> stringResource(R.string.registration) to true
+        Screen.Registration.route -> stringResource(R.string.bank_clients_registration) to true
         Screen.Purchases.route -> stringResource(R.string.my_purchases) to true
         else -> "" to false
     }
 
-    val scrollState = rememberScrollState()
-    val canScroll = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    LaunchedEffect(scrollState.maxValue) {
-        canScroll.value = scrollState.maxValue > 0
-    }
 
     Scaffold(
         topBar = {
@@ -55,7 +47,7 @@ fun MainScreen(
                 onBackClick = { navController.popBackStack() }
             )
         },
-        modifier = modifier
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -69,7 +61,8 @@ fun MainScreen(
                     },
                     onPurchasesClick = {
                         navController.navigate(Screen.Purchases.route)
-                    })
+                    },
+                    scrollBehavior = scrollBehavior)
             }
             composable(Screen.Registration.route) {
                 RegistrationScreen(onFinish = {
