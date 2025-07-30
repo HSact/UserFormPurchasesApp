@@ -1,8 +1,7 @@
-package com.hsact.userformpurchasesapp.ui.registration
+package com.hsact.userformpurchasesapp.ui.screens.purchases
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,14 +11,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hsact.userformpurchasesapp.R
 
 @Composable
-fun RegistrationScreen (
-    onFinish: () -> Unit,
-    viewModel: RegistrationViewModel = hiltViewModel<RegistrationViewModel>()
+fun PurchasesScreen(
+    viewModel: PurchasesViewModel = hiltViewModel<PurchasesViewModel>()
 ) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(stringResource(R.string.bank_clients_registration))
-        Button(onClick = onFinish) {
-            Text(stringResource(R.string.button_continue))
-        }
+        Text(stringResource(R.string.my_purchases))
     }
 }

@@ -1,4 +1,4 @@
-package com.hsact.userformpurchasesapp.ui.profile
+package com.hsact.userformpurchasesapp.ui.screens.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

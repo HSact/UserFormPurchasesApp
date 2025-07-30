@@ -1,4 +1,4 @@
-package com.hsact.userformpurchasesapp.ui.purchases
+package com.hsact.userformpurchasesapp.ui.screens.purchases
 
 import androidx.lifecycle.ViewModel
 import com.hsact.domain.usecase.GetPurchasesUseCase
