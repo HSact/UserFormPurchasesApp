@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -47,12 +48,14 @@ fun MainScreen(
                 onBackClick = { navController.popBackStack() }
             )
         },
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+
     ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = Screen.Profile.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding).padding(horizontal = 24.dp)
         ) {
             composable(Screen.Profile.route) {
                 ProfileScreen(
@@ -62,7 +65,8 @@ fun MainScreen(
                     onPurchasesClick = {
                         navController.navigate(Screen.Purchases.route)
                     },
-                    scrollBehavior = scrollBehavior)
+                    scrollBehavior = scrollBehavior
+                )
             }
             composable(Screen.Registration.route) {
                 RegistrationScreen(onFinish = {

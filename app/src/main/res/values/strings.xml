@@ -7,4 +7,10 @@
     <string name="my_purchases">Мои покупки</string>
     <string name="participant_number">Номер участника</string>
     <string name="number_that_you_recived">Номер из 16 цифр, который вы получили от банка</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="as_in_passort">(на латинице, как в загранпаспорте)</string>
+    <string name="code">Код</string>
+    <string name="code_that_you_recived">Код, который вы получили от банка</string>
+    <string name="by_clicking_continue_button_you_agree">Нажимая кнопку продолжить,\nвы соглашаетесь с условиями участия</string>
 </resources>
