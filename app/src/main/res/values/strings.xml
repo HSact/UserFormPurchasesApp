@@ -13,4 +13,11 @@
     <string name="code">Код</string>
     <string name="code_that_you_recived">Код, который вы получили от банка</string>
     <string name="by_clicking_continue_button_you_agree">Нажимая кнопку продолжить,\nвы соглашаетесь с условиями участия</string>
+    <string name="example_email">example@example.com</string>
+    <string name="language">Язык</string>
+    <string name="change_pin">Сменить четырехзначный код</string>
+    <string name="biometric_auth">Вход по биометрии</string>
+    <string name="confirmation_required">Необходимо подтвердить</string>
+    <string name="email">E-mail</string>
+    <string name="unknown">Unknown</string>
 </resources>
