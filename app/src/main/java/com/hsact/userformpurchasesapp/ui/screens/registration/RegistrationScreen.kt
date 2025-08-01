@@ -113,7 +113,7 @@ private fun InputSection(
 
     val keyboardOptions = when (inputType) {
         FieldInputType.Number -> KeyboardOptions(
-            keyboardType = KeyboardType.Number,
+            keyboardType = KeyboardType.NumberPassword,
             capitalization = KeyboardCapitalization.None
         )
 
