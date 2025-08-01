@@ -42,6 +42,15 @@ android {
     buildFeatures {
         compose = true
     }
+    applicationVariants.all {
+        val variant = this
+        variant.outputs
+            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+            .forEach { output ->
+                val outputFileName = "UserFormPurchasesApp_v${variant.versionName}.apk"
+                output.outputFileName = outputFileName
+            }
+    }
 }
 
 dependencies {
