@@ -84,7 +84,8 @@ fun RegistrationScreen(
         Spacer(modifier = Modifier.height(12.dp))
         Button(
             onClick = { viewModel.handleIntent(RegistrationIntent.SubmitClicked) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = uiState.isValid
         ) {
             Text(stringResource(R.string.button_continue))
         }

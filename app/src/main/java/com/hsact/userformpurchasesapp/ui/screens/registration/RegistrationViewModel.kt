@@ -31,13 +31,7 @@ class RegistrationViewModel @Inject constructor(
                         name = userData.name,
                         surname = userData.surname,
                         code = userData.code,
-                        participantNumber = userData.participantNumber,
-                        isValid = validate(
-                            userData.name,
-                            userData.surname,
-                            userData.code,
-                            userData.participantNumber
-                        )
+                        participantNumber = userData.participantNumber
                     )
                 }
         }
@@ -66,32 +60,8 @@ class RegistrationViewModel @Inject constructor(
             code = code ?: current.code,
             participantNumber = participantNumber ?: current.participantNumber
         )
-        _uiState.value = newState.copy(
-            isValid = validate(newState)
-        )
+        _uiState.value = newState.copy()
     }
-
-    private fun validate(state: RegistrationUiState): Boolean {
-        return state.name.isNotBlank() &&
-                state.surname.isNotBlank() &&
-                state.code.isNotBlank() &&
-                state.participantNumber.length == 16 &&
-                state.participantNumber.all { it.isDigit() }
-    }
-
-    private fun validate(
-        name: String,
-        surname: String,
-        code: String,
-        participantNumber: String
-    ): Boolean {
-        return name.isNotBlank() &&
-                surname.isNotBlank() &&
-                code.isNotBlank() &&
-                participantNumber.length == 16 &&
-                participantNumber.all { it.isDigit() }
-    }
-
 
     private fun saveUser() {
         viewModelScope.launch {
