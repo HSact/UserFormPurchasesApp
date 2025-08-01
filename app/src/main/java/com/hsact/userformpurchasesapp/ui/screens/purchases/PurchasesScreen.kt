@@ -43,10 +43,9 @@ fun PurchasesScreen(
                             text = date,
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 12.dp)
+                                .padding(vertical = 16.dp)
                         )
                     }
-
                     items(names) { name ->
                         PurchaseCard(name)
                     }

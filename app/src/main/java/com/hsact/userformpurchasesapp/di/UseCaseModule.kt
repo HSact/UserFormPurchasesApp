@@ -2,7 +2,7 @@ package com.hsact.userformpurchasesapp.di
 
 import com.hsact.domain.repository.PurchaseRepository
 import com.hsact.domain.repository.UserDataRepository
-import com.hsact.domain.usecase.GetPurchasesUseCase
+import com.hsact.domain.usecase.purchases.GetGroupedPurchasesUseCase
 import com.hsact.domain.usecase.userdata.GetUserDataUseCase
 import com.hsact.domain.usecase.userdata.SaveUserDataUseCase
 import dagger.Module
@@ -31,5 +31,5 @@ object UseCaseModule {
     @Singleton
     fun provideGetPurchasesUseCase(
         repository: PurchaseRepository
-    ): GetPurchasesUseCase = GetPurchasesUseCase(repository)
+    ): GetGroupedPurchasesUseCase = GetGroupedPurchasesUseCase(repository)
 }
