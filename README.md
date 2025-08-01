@@ -1,3 +1,4 @@
+APK доступен в разделе [Releases](https://github.com/HSact/UserFormPurchasesApp/releases)
 ## О проекте
 
 Тестовое Android-приложение с тремя экранами:
