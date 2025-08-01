@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">UserFormPurchasesApp</string>
     <string name="profile">Профиль</string>
-    <string name="registration">Регистрация</string>
     <string name="button_continue">Продолжить</string>
     <string name="bank_clients_registration">Регистрация для клиентов банка</string>
     <string name="my_purchases">Мои покупки</string>
@@ -13,7 +12,6 @@
     <string name="code">Код</string>
     <string name="code_that_you_recived">Код, который вы получили от банка</string>
     <string name="by_clicking_continue_button_you_agree">Нажимая кнопку продолжить,\nвы соглашаетесь с условиями участия</string>
-    <string name="example_email">example@example.com</string>
     <string name="language">Язык</string>
     <string name="change_pin">Сменить четырехзначный код</string>
     <string name="biometric_auth">Вход по биометрии</string>
