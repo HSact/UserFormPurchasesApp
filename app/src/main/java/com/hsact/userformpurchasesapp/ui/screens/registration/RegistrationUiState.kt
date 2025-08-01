@@ -5,5 +5,6 @@ data class RegistrationUiState(
     val surname: String = "",
     val code: String = "",
     val participantNumber: String = "",
-    val isValid: Boolean = false
+    val isValid: Boolean = false,
+    val isFinished: Boolean = false
 )

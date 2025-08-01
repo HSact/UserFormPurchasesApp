@@ -104,6 +104,7 @@ class RegistrationViewModel @Inject constructor(
                 )
             }
             saveUserDataUseCase(user)
+            _uiState.value = _uiState.value.copy(isFinished = true)
         }
     }
 }

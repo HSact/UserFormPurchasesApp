@@ -32,6 +32,11 @@ fun RegistrationScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    if (uiState.isFinished) {
+        onFinish()
+        return
+    }
+
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.height(24.dp))
         InputSection(
