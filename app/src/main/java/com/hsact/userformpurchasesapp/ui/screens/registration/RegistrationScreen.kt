@@ -37,7 +37,7 @@ fun RegistrationScreen(
         InputSection(
             inputType = FieldInputType.Number,
             value = uiState.participantNumber,
-            onValueChange = { viewModel.onEvent(RegistrationIntent.ParticipantNumberChanged(it)) },
+            onValueChange = { viewModel.handleIntent(RegistrationIntent.ParticipantNumberChanged(it)) },
             label = stringResource(R.string.participant_number),
             helperText = stringResource(R.string.number_that_you_recived),
             maxLength = FieldInputMaxLength.ParticipantNumber.value
@@ -46,7 +46,7 @@ fun RegistrationScreen(
         InputSection(
             inputType = FieldInputType.Number,
             value = uiState.code,
-            onValueChange = { viewModel.onEvent(RegistrationIntent.CodeChanged(it)) },
+            onValueChange = { viewModel.handleIntent(RegistrationIntent.CodeChanged(it)) },
             label = stringResource(R.string.code),
             helperText = stringResource(R.string.code_that_you_recived),
             maxLength = FieldInputMaxLength.Code.value
@@ -55,7 +55,7 @@ fun RegistrationScreen(
         InputSection(
             inputType = FieldInputType.LatinLetters,
             value = uiState.name,
-            onValueChange = { viewModel.onEvent(RegistrationIntent.NameChanged(it)) },
+            onValueChange = { viewModel.handleIntent(RegistrationIntent.NameChanged(it)) },
             label = stringResource(R.string.name),
             helperText = stringResource(R.string.name) + " " + stringResource(R.string.as_in_passort),
             maxLength = FieldInputMaxLength.Name.value
@@ -64,7 +64,7 @@ fun RegistrationScreen(
         InputSection(
             inputType = FieldInputType.LatinLetters,
             value = uiState.surname,
-            onValueChange = { viewModel.onEvent(RegistrationIntent.SurnameChanged(it)) },
+            onValueChange = { viewModel.handleIntent(RegistrationIntent.SurnameChanged(it)) },
             label = stringResource(R.string.surname),
             helperText = stringResource(R.string.surname) + " " + stringResource(R.string.as_in_passort),
             maxLength = FieldInputMaxLength.Surname.value
@@ -78,7 +78,7 @@ fun RegistrationScreen(
         )
         Spacer(modifier = Modifier.height(12.dp))
         Button(
-            onClick = onFinish,
+            onClick = { viewModel.handleIntent(RegistrationIntent.SubmitClicked) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(stringResource(R.string.button_continue))

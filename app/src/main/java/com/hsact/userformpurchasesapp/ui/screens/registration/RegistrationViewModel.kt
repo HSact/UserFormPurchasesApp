@@ -8,6 +8,8 @@ import com.hsact.domain.usecase.userdata.SaveUserDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +21,29 @@ class RegistrationViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(RegistrationUiState())
     val uiState: StateFlow<RegistrationUiState> = _uiState
 
-    fun onEvent(event: RegistrationIntent) {
+    init {
+        viewModelScope.launch {
+            getUserDataUseCase()
+                .filterNotNull()
+                .firstOrNull()
+                ?.let { userData ->
+                    _uiState.value = _uiState.value.copy(
+                        name = userData.name,
+                        surname = userData.surname,
+                        code = userData.code,
+                        participantNumber = userData.participantNumber,
+                        isValid = validate(
+                            userData.name,
+                            userData.surname,
+                            userData.code,
+                            userData.participantNumber
+                        )
+                    )
+                }
+        }
+    }
+
+    fun handleIntent(event: RegistrationIntent) {
         when (event) {
             is RegistrationIntent.NameChanged -> updateState(name = event.value)
             is RegistrationIntent.SurnameChanged -> updateState(surname = event.value)
@@ -54,6 +78,20 @@ class RegistrationViewModel @Inject constructor(
                 state.participantNumber.length == 16 &&
                 state.participantNumber.all { it.isDigit() }
     }
+
+    private fun validate(
+        name: String,
+        surname: String,
+        code: String,
+        participantNumber: String
+    ): Boolean {
+        return name.isNotBlank() &&
+                surname.isNotBlank() &&
+                code.isNotBlank() &&
+                participantNumber.length == 16 &&
+                participantNumber.all { it.isDigit() }
+    }
+
 
     private fun saveUser() {
         viewModelScope.launch {
