@@ -60,12 +60,12 @@ fun ProfileScreen(
             Text(
                 text = uiState.name,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(vertical = 24.dp).align(Alignment.Start)
+                modifier = Modifier.padding(top = 24.dp, bottom = 4.dp).align(Alignment.Start)
             )
             Text(
                 text = uiState.surname,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(top = 8.dp, bottom = 24.dp).align(Alignment.Start)
+                modifier = Modifier.padding(top = 4.dp, bottom = 24.dp).align(Alignment.Start)
             )
         }
         ProfileCard(
