@@ -13,12 +13,11 @@ APK доступен в разделе [Releases](https://github.com/HSact/UserF
 
 - Kotlin, Jetpack Compose  
 - Hilt для DI  
-- Kotlin Coroutines и Flow для асинхронности и реактивности  
+- Coroutines и Flow для асинхронности и реактивности  
 - StateFlow и sealed классы для управления состоянием UI  
 - Локальный источник данных — JSON из assets  
 - Группировка и сортировка данных реализованы в UseCase  
-- Навигация через Jetpack Navigation Compose  
-- UI полностью на Compose, Material3  
+- Навигация через Jetpack Navigation Compose   
 
 ---
 
@@ -42,7 +41,7 @@ APK доступен в разделе [Releases](https://github.com/HSact/UserF
 
 ---
 
-## Screenshots
+## Скриншоты
 
 <table>
   <tr>
