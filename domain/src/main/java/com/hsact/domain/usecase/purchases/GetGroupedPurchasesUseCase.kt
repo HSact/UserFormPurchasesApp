@@ -6,6 +6,16 @@ import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.time.ZoneId
 
+/**
+ * Use case that retrieves purchases from the repository and groups them by local date.
+ *
+ * Purchases are first sorted in descending order by timestamp.
+ * Then they are grouped by the date (converted to the system's default time zone),
+ * and for each date, a flat list of purchase names is produced.
+ *
+ * @property repository The purchase repository providing raw purchase data.
+ * @return A [Flow] emitting a map of [LocalDate] to a list of purchase names.
+ */
 class GetGroupedPurchasesUseCase(
     private val repository: PurchaseRepository
 ) {

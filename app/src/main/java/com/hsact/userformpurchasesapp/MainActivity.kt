@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.hsact.userformpurchasesapp.ui.screens.MainScreen
+import com.hsact.userformpurchasesapp.ui.screens.AppScaffold
 import com.hsact.userformpurchasesapp.ui.theme.UserFormPurchasesAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         windowInsetsController.isAppearanceLightNavigationBars = false
         setContent {
             UserFormPurchasesAppTheme(darkTheme = true) {
-                    MainScreen()
+                    AppScaffold()
                 }
         }
     }

@@ -15,14 +15,35 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel responsible for handling the registration form UI logic.
+ *
+ * This ViewModel manages input field states (name, surname, code, participant number),
+ * handles form events (text and focus changes, submission),
+ * validates user input, and interacts with the domain layer via use cases.
+ *
+ * @property getUserDataUseCase Use case to retrieve previously saved user data.
+ * @property saveUserDataUseCase Use case to persist user-submitted data.
+ */
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val saveUserDataUseCase: SaveUserDataUseCase
 ) : ViewModel() {
+
+    /**
+     * Internal mutable UI state.
+     */
     private val _uiState = MutableStateFlow(RegistrationUiState())
+
+    /**
+     * Public read-only state exposed to the UI.
+     */
     val uiState: StateFlow<RegistrationUiState> = _uiState
 
+    /**
+     * Loads saved user data (if available) when the ViewModel is created.
+     */
     init {
         viewModelScope.launch {
             getUserDataUseCase()
@@ -39,6 +60,11 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Handles user intents such as text input, focus changes, and form submission.
+     *
+     * @param event The user interaction to process.
+     */
     fun handleIntent(event: RegistrationIntent) {
         when (event) {
             is RegistrationIntent.NameChanged -> updateState(name = event.value)
@@ -69,6 +95,12 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Updates focus-related flags for the specified input field.
+     *
+     * @param field The field whose focus state is changing.
+     * @param isFocused Whether the field is currently focused.
+     */
     private fun updateFocusState(field: FieldType, isFocused: Boolean) {
         _uiState.value = _uiState.value.run {
             when (field) {
@@ -103,6 +135,14 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Updates the state of one or more input fields based on user input.
+     *
+     * @param name Optional new name value.
+     * @param surname Optional new surname value.
+     * @param code Optional new code value.
+     * @param participantNumber Optional new participant number value.
+     */
     private fun updateState(
         name: String? = null,
         surname: String? = null,
@@ -119,6 +159,10 @@ class RegistrationViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Saves the user-submitted form data via the domain layer.
+     * Marks registration as finished upon completion.
+     */
     private fun saveUser() {
         viewModelScope.launch {
             val user = with(_uiState.value) {

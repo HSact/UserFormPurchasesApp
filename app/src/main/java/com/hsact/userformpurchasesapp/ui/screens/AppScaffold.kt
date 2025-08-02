@@ -23,7 +23,7 @@ import com.hsact.userformpurchasesapp.ui.screens.registration.RegistrationScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(
+fun AppScaffold(
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
@@ -37,7 +37,7 @@ fun MainScreen(
         else -> "" to false
     }
 
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
         topBar = {
