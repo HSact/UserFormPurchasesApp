@@ -1,5 +1,6 @@
 package com.hsact.userformpurchasesapp.ui.screens.profile
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hsact.domain.usecase.userdata.GetUserDataUseCase
@@ -26,9 +27,13 @@ class ProfileViewModel @Inject constructor(
             getUserDataUseCase()
                 .filterNotNull()
                 .collect { userData ->
+                    Log.d("ProfileViewModel", "Got userData: $userData")
                     _uiState.value = _uiState.value.copy(
                         name = userData.name,
-                        surname = userData.surname
+                        surname = userData.surname,
+                        email = _uiState.value.email,
+                        isBiometricEnabled = _uiState.value.isBiometricEnabled,
+                        language = _uiState.value.language
                     )
                 }
         }

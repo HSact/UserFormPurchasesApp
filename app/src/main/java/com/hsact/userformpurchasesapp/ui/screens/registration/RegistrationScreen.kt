@@ -174,6 +174,6 @@ private fun InputSection(
 private fun filterInput(value: String, inputType: FieldInputType): String = when (inputType) {
     FieldInputType.Number -> value.filter { it.isDigit() }
     FieldInputType.LatinLetters -> value.filter {
-        (it.isLetter() && (it.lowercaseChar() in 'a'..'z')) || it == ' ' || it == '-'
+        (it.isLetter() && (it.lowercaseChar() in 'a'..'z')) || it == ' ' || it == '-' || it == '\''
     }.uppercase()
 }

@@ -1,5 +1,6 @@
 package com.hsact.userformpurchasesapp.ui.screens.profile
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,13 +42,13 @@ fun ProfileScreen(
 ) {
     val uiState = viewModel.uiState.collectAsState().value
     val scrollState = rememberScrollState()
-
+    Log.d("ProfileScreen", "Composing with $uiState")
     Column(
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection)
             .verticalScroll(scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
         if (uiState.name.isEmpty() || uiState.surname.isEmpty()) {
             Text(
@@ -84,7 +85,8 @@ fun ProfileScreen(
                     checked = uiState.isBiometricEnabled,
                     onCheckedChange = {viewModel.switchBiometric()}
                 )
-            }
+            },
+            onClick = {viewModel.switchBiometric()}
         )
         ProfileCard(
             title = stringResource(R.string.change_pin)
@@ -125,7 +127,6 @@ fun ProfileCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
-//            .heightIn(min = 72.dp)
             .then(
                 if (onClick != null) Modifier.clickable { onClick() } else Modifier
             ),
