@@ -16,6 +16,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
+/**
+ * Composable screen displaying the user's purchases grouped by date.
+ *
+ * Observes [PurchasesViewModel]'s UI state and shows:
+ * - a loading indicator while data is loading,
+ * - an error message if loading fails,
+ * - or a grouped list of purchases on success.
+ *
+ * @param viewModel The ViewModel that provides the purchases data.
+ */
 @Composable
 fun PurchasesScreen(
     viewModel: PurchasesViewModel = hiltViewModel<PurchasesViewModel>()
@@ -55,6 +65,11 @@ fun PurchasesScreen(
     }
 }
 
+/**
+ * Displays a single purchase item inside a card.
+ *
+ * @param name Name or description of the purchase.
+ */
 @Composable
 private fun PurchaseCard(name: String) {
     androidx.compose.material3.Card(
