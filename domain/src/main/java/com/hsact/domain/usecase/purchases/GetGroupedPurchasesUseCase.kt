@@ -19,6 +19,13 @@ import java.time.ZoneId
 class GetGroupedPurchasesUseCase(
     private val repository: PurchaseRepository
 ) {
+    /**
+     * Returns a flow of purchases grouped by local date.
+     *
+     * The flow emits a map where each key is a [LocalDate] (based on system default time zone),
+     * and the corresponding value is a flat list of purchase names for that date.
+     * The purchases are sorted in descending order before grouping.
+     */
     operator fun invoke(): Flow<Map<LocalDate, List<String>>> {
         return repository.getPurchases()
             .map { list ->

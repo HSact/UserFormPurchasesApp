@@ -9,9 +9,20 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
+/**
+ * Data source responsible for loading purchase data from app assets.
+ *
+ * @property context Application context used to access assets.
+ */
 class PurchaseDataSource @Inject constructor(
     @param:ApplicationContext private val context: Context,
 ) {
+    /**
+     * Loads purchase data from the "mock_data.json" file in the assets folder
+     * and emits it as a flow of a list of [PurchaseDto].
+     *
+     * @return Flow emitting a list of purchase DTOs.
+     */
     fun loadFromAssets(): Flow<List<PurchaseDto>> = flow {
         val json = context.assets.open("mock_data.json")
             .bufferedReader()

@@ -10,6 +10,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * Manages saving and retrieving [UserData] using Jetpack DataStore.
+ *
+ * @property context Application context injected by Hilt.
+ */
 class DataStoreManager @Inject constructor(
     @param:ApplicationContext private val context: Context,
 ) {
@@ -23,6 +28,11 @@ class DataStoreManager @Inject constructor(
         val SURNAME = stringPreferencesKey("surname")
     }
 
+    /**
+     * Saves the provided [UserData] to DataStore preferences.
+     *
+     * @param user The user data to save.
+     */
     suspend fun saveUserData(user: UserData) {
         context.dataStore.edit { prefs ->
             prefs[Keys.PARTICIPANT_NUMBER] = user.participantNumber
@@ -32,6 +42,11 @@ class DataStoreManager @Inject constructor(
         }
     }
 
+    /**
+     * Retrieves user data as a [Flow] of [UserData] from DataStore preferences.
+     *
+     * If all fields are null, returns null.
+     */
     fun getUserData(): Flow<UserData?> {
         return context.dataStore.data.map { prefs ->
             val number = prefs[Keys.PARTICIPANT_NUMBER]
