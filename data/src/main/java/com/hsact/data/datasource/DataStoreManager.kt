@@ -34,17 +34,21 @@ class DataStoreManager @Inject constructor(
 
     fun getUserData(): Flow<UserData?> {
         return context.dataStore.data.map { prefs ->
-            val number = prefs[Keys.PARTICIPANT_NUMBER] ?: ""
-            val code = prefs[Keys.CODE] ?: ""
-            val name = prefs[Keys.NAME] ?: ""
-            val surname = prefs[Keys.SURNAME] ?: ""
+            val number = prefs[Keys.PARTICIPANT_NUMBER]
+            val code = prefs[Keys.CODE]
+            val name = prefs[Keys.NAME]
+            val surname = prefs[Keys.SURNAME]
 
-            UserData(
-                participantNumber = number,
-                code = code,
-                name = name,
-                surname = surname
-            )
+            if (number == null && code == null && name == null && surname == null) {
+                null
+            } else {
+                UserData(
+                    participantNumber = number ?: "",
+                    code = code ?: "",
+                    name = name ?: "",
+                    surname = surname ?: ""
+                )
+            }
         }
     }
 }
