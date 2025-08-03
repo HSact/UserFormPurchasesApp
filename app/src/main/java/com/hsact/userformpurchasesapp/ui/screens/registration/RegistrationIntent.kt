@@ -1,5 +1,9 @@
 package com.hsact.userformpurchasesapp.ui.screens.registration
 
+/**
+ * Represents user actions (intents) on the registration screen.
+ * These intents are handled by the ViewModel to update the UI state.
+ */
 sealed interface RegistrationIntent {
     data class NameChanged(val value: String) : RegistrationIntent
     data class NameFocusChanged(val isFocused: Boolean) : RegistrationIntent
