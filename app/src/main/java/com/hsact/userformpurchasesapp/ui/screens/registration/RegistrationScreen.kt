@@ -36,6 +36,16 @@ import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldInputTy
 import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldState
 import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldType
 
+/**
+ * Composable screen that represents the user registration form.
+ *
+ * Displays a scrollable list of input fields for user data (participant number, code, name, surname),
+ * and a submit button. The screen uses a [RegistrationViewModel] to manage form state and input validation.
+ *
+ * @param onFinish Callback triggered when registration is completed successfully.
+ * @param scrollBehavior Scroll behavior applied to the top app bar.
+ * @param viewModel ViewModel used to handle registration logic and UI state.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
@@ -116,11 +126,19 @@ fun RegistrationScreen(
     }
 }
 
-@Composable
-private fun RegistrationScreenSpacer() {
-    Spacer(modifier = Modifier.height(24.dp))
-}
-
+/**
+ * Reusable composable for rendering a single input field in the registration form.
+ *
+ * Applies field-specific validation, formatting, and keyboard options based on [FieldType].
+ *
+ * @param modifier Modifier to be applied to the input field layout.
+ * @param fieldType The type of input field (e.g., Name, Surname, Code, etc.).
+ * @param fieldState State of the input field, including current text and focus state.
+ * @param onValueChange Callback invoked when the field value changes.
+ * @param onFocusChange Callback invoked when the field's focus state changes.
+ * @param label The label shown inside the input field.
+ * @param helperText Additional helper or hint text shown below the input field.
+ */
 @Composable
 private fun InputSection(
     modifier: Modifier = Modifier,
@@ -178,6 +196,24 @@ private fun InputSection(
     }
 }
 
+/**
+ * Adds vertical spacing between input sections for visual separation.
+ */
+@Composable
+private fun RegistrationScreenSpacer() {
+    Spacer(modifier = Modifier.height(24.dp))
+}
+
+/**
+ * Filters the input string according to the provided [FieldInputType].
+ *
+ * - For [FieldInputType.Number], removes all non-digit characters.
+ * - For [FieldInputType.LatinLetters], retains only Latin letters, spaces, hyphens, and apostrophes.
+ *
+ * @param value The raw input string.
+ * @param inputType The type of input allowed.
+ * @return A filtered string containing only allowed characters.
+ */
 private fun filterInput(value: String, inputType: FieldInputType): String = when (inputType) {
     FieldInputType.Number -> value.filter { it.isDigit() }
     FieldInputType.LatinLetters -> value.filter {
