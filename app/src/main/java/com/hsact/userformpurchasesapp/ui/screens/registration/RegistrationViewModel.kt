@@ -167,8 +167,8 @@ class RegistrationViewModel @Inject constructor(
         viewModelScope.launch {
             val user = with(_uiState.value) {
                 UserData(
-                    name = name.text,
-                    surname = surname.text,
+                    name = name.text.trim(),
+                    surname = surname.text.trim(),
                     code = code.text,
                     participantNumber = participantNumber.text
                 )
