@@ -21,6 +21,14 @@ import com.hsact.userformpurchasesapp.ui.screens.profile.ProfileScreen
 import com.hsact.userformpurchasesapp.ui.screens.purchases.PurchasesScreen
 import com.hsact.userformpurchasesapp.ui.screens.registration.RegistrationScreen
 
+/**
+ * Root scaffold of the app.
+ *
+ * Provides top bar and handles navigation between:
+ * - Profile screen
+ * - Registration screen
+ * - Purchases screen
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScaffold(
@@ -71,9 +79,12 @@ fun AppScaffold(
                 )
             }
             composable(Screen.Registration.route) {
-                RegistrationScreen(onFinish = {
-                    navController.popBackStack()
-                })
+                RegistrationScreen(
+                    onFinish = {
+                        navController.popBackStack()
+                    },
+                    scrollBehavior = scrollBehavior
+                )
             }
             composable(Screen.Purchases.route) {
                 PurchasesScreen()

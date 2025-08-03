@@ -5,10 +5,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -31,22 +36,28 @@ import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldInputTy
 import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldState
 import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldType
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationScreen(
     onFinish: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior,
     viewModel: RegistrationViewModel = hiltViewModel<RegistrationViewModel>()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
+    val scrollState = rememberScrollState()
     LaunchedEffect(uiState.isFinished) {
         if (uiState.isFinished) onFinish()
     }
 
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .verticalScroll(scrollState), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.ParticipantNumber,
-            inputType = FieldInputType.Number,
             fieldState = uiState.participantNumber,
             onValueChange = { viewModel.handleIntent(RegistrationIntent.ParticipantNumberChanged(it)) },
             onFocusChange = {
@@ -58,40 +69,33 @@ fun RegistrationScreen(
             },
             label = stringResource(R.string.participant_number),
             helperText = stringResource(R.string.number_that_you_recived),
-            maxLength = FieldInputMaxLength.ParticipantNumber.value
         )
         RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.Code,
-            inputType = FieldInputType.Number,
             fieldState = uiState.code,
             onValueChange = { viewModel.handleIntent(RegistrationIntent.CodeChanged(it)) },
             onFocusChange = { viewModel.handleIntent(RegistrationIntent.CodeFocusChanged(it)) },
             label = stringResource(R.string.code),
             helperText = stringResource(R.string.code_that_you_recived),
-            maxLength = FieldInputMaxLength.Code.value
         )
         RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.Name,
-            inputType = FieldInputType.LatinLetters,
             fieldState = uiState.name,
             onValueChange = { viewModel.handleIntent(RegistrationIntent.NameChanged(it)) },
             onFocusChange = { viewModel.handleIntent(RegistrationIntent.NameFocusChanged(it)) },
             label = stringResource(R.string.name),
             helperText = stringResource(R.string.name) + " " + stringResource(R.string.as_in_passort),
-            maxLength = FieldInputMaxLength.Name.value
         )
         RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.Surname,
-            inputType = FieldInputType.LatinLetters,
             fieldState = uiState.surname,
             onValueChange = { viewModel.handleIntent(RegistrationIntent.SurnameChanged(it)) },
             onFocusChange = { viewModel.handleIntent(RegistrationIntent.SurnameFocusChanged(it)) },
             label = stringResource(R.string.surname),
             helperText = stringResource(R.string.surname) + " " + stringResource(R.string.as_in_passort),
-            maxLength = FieldInputMaxLength.Surname.value
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
@@ -121,16 +125,14 @@ private fun RegistrationScreenSpacer() {
 private fun InputSection(
     modifier: Modifier = Modifier,
     fieldType: FieldType,
-    inputType: FieldInputType,
     fieldState: FieldState,
     onValueChange: (String) -> Unit,
     onFocusChange: (Boolean) -> Unit,
     label: String,
     helperText: String,
-    maxLength: Int,
 ) {
 
-    val filteredValue = filterInput(fieldState.text, inputType)
+    val filteredValue = filterInput(fieldState.text, fieldType.inputType)
 
     if (filteredValue != fieldState.text) {
         onValueChange(filteredValue)
@@ -142,7 +144,7 @@ private fun InputSection(
         else -> fieldState.text.isEmpty()
     }
 
-    val keyboardOptions = when (inputType) {
+    val keyboardOptions = when (fieldType.inputType) {
         FieldInputType.Number -> KeyboardOptions(
             keyboardType = KeyboardType.NumberPassword,
             capitalization = KeyboardCapitalization.None
@@ -156,9 +158,9 @@ private fun InputSection(
 
     Column(modifier = modifier.fillMaxWidth()) {
         OutlinedTextField(
-            value = if (inputType == FieldInputType.LatinLetters) fieldState.text.uppercase() else fieldState.text,
+            value = if (fieldType.inputType == FieldInputType.LatinLetters) fieldState.text.uppercase() else fieldState.text,
             onValueChange = { newValue ->
-                val filtered = filterInput(newValue, inputType).take(maxLength)
+                val filtered = filterInput(newValue, fieldType.inputType).take(fieldType.maxLength)
                 onValueChange(filtered)
             },
             label = { Text(text = label) },

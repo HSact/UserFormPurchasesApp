@@ -13,8 +13,8 @@
         android:theme="@style/Theme.UserFormPurchasesApp">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.UserFormPurchasesApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
