@@ -34,7 +34,7 @@ class DataStoreManager @Inject constructor(
 
     fun getUserData(): Flow<UserData?> {
         return context.dataStore.data.map { prefs ->
-            val number = prefs[Keys.PARTICIPANT_NUMBER] ?: return@map null
+            val number = prefs[Keys.PARTICIPANT_NUMBER] ?: ""
             val code = prefs[Keys.CODE] ?: ""
             val name = prefs[Keys.NAME] ?: ""
             val surname = prefs[Keys.SURNAME] ?: ""
