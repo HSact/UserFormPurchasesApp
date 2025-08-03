@@ -24,18 +24,18 @@ class ProfileViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getUserDataUseCase()
-                .filterNotNull()
-                .collect { userData ->
-                    Log.d("ProfileViewModel", "Got userData: $userData")
-                    _uiState.value = _uiState.value.copy(
-                        name = userData.name,
-                        surname = userData.surname,
-                        email = _uiState.value.email,
-                        isBiometricEnabled = _uiState.value.isBiometricEnabled,
-                        language = _uiState.value.language
-                    )
-                }
+            try {
+                getUserDataUseCase()
+                    .filterNotNull()
+                    .collect { userData ->
+                        _uiState.value = _uiState.value.copy(
+                            name = userData.name,
+                            surname = userData.surname
+                        )
+                    }
+            } catch (e: Exception) {
+                Log.e("ProfileViewModel", "Error fetching user data", e)
+            }
         }
     }
 }

@@ -55,7 +55,9 @@ fun AppScaffold(
         NavHost(
             navController = navController,
             startDestination = Screen.Profile.route,
-            modifier = Modifier.padding(innerPadding).padding(horizontal = 24.dp)
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 24.dp)
         ) {
             composable(Screen.Profile.route) {
                 ProfileScreen(

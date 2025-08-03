@@ -39,7 +39,8 @@ class PurchasesViewModel @Inject constructor(
                     _uiState.value = PurchasesUiState.Success(formatted)
                 }
             } catch (e: Exception) {
-                _uiState.value = PurchasesUiState.Error("Failed to load purchases: ${e.localizedMessage}")
+                _uiState.value =
+                    PurchasesUiState.Error("Failed to load purchases: ${e.localizedMessage}")
             }
         }
     }

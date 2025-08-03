@@ -10,7 +10,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hsact.userformpurchasesapp.R
 import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldInputMaxLength
 import com.hsact.userformpurchasesapp.ui.screens.registration.field.FieldInputType
@@ -35,15 +36,14 @@ fun RegistrationScreen(
     onFinish: () -> Unit,
     viewModel: RegistrationViewModel = hiltViewModel<RegistrationViewModel>()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (uiState.isFinished) {
-        onFinish()
-        return
+    LaunchedEffect(uiState.isFinished) {
+        if (uiState.isFinished) onFinish()
     }
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(modifier = Modifier.height(24.dp))
+        RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.ParticipantNumber,
             inputType = FieldInputType.Number,
@@ -60,7 +60,7 @@ fun RegistrationScreen(
             helperText = stringResource(R.string.number_that_you_recived),
             maxLength = FieldInputMaxLength.ParticipantNumber.value
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.Code,
             inputType = FieldInputType.Number,
@@ -71,7 +71,7 @@ fun RegistrationScreen(
             helperText = stringResource(R.string.code_that_you_recived),
             maxLength = FieldInputMaxLength.Code.value
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.Name,
             inputType = FieldInputType.LatinLetters,
@@ -82,7 +82,7 @@ fun RegistrationScreen(
             helperText = stringResource(R.string.name) + " " + stringResource(R.string.as_in_passort),
             maxLength = FieldInputMaxLength.Name.value
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        RegistrationScreenSpacer()
         InputSection(
             fieldType = FieldType.Surname,
             inputType = FieldInputType.LatinLetters,
@@ -110,6 +110,11 @@ fun RegistrationScreen(
         }
         Spacer(modifier = Modifier.height(12.dp))
     }
+}
+
+@Composable
+private fun RegistrationScreenSpacer() {
+    Spacer(modifier = Modifier.height(24.dp))
 }
 
 @Composable

@@ -1,6 +1,5 @@
 package com.hsact.userformpurchasesapp.ui.screens.profile
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hsact.userformpurchasesapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,9 +39,8 @@ fun ProfileScreen(
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>()
 ) {
-    val uiState = viewModel.uiState.collectAsState().value
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
     val scrollState = rememberScrollState()
-    Log.d("ProfileScreen", "Composing with $uiState")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,19 +52,24 @@ fun ProfileScreen(
             Text(
                 text = stringResource(R.string.unknown),
                 fontSize = 24.sp,
-                modifier = Modifier.padding(vertical = 24.dp).align(Alignment.Start)
+                modifier = Modifier
+                    .padding(vertical = 24.dp)
+                    .align(Alignment.Start)
             )
-        }
-        else {
+        } else {
             Text(
                 text = uiState.name,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(top = 24.dp, bottom = 4.dp).align(Alignment.Start)
+                modifier = Modifier
+                    .padding(top = 24.dp, bottom = 4.dp)
+                    .align(Alignment.Start)
             )
             Text(
                 text = uiState.surname,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(top = 4.dp, bottom = 24.dp).align(Alignment.Start)
+                modifier = Modifier
+                    .padding(top = 4.dp, bottom = 24.dp)
+                    .align(Alignment.Start)
             )
         }
         ProfileCard(
@@ -83,10 +86,10 @@ fun ProfileScreen(
             trailing = {
                 Switch(
                     checked = uiState.isBiometricEnabled,
-                    onCheckedChange = {viewModel.switchBiometric()}
+                    onCheckedChange = { viewModel.switchBiometric() }
                 )
             },
-            onClick = {viewModel.switchBiometric()}
+            onClick = { viewModel.switchBiometric() }
         )
         ProfileCard(
             title = stringResource(R.string.change_pin)
