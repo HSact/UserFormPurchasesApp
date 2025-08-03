@@ -31,6 +31,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hsact.userformpurchasesapp.R
 
+/**
+ * Composable screen that displays user profile information and settings.
+ *
+ * Shows user's name and surname (or "Unknown" if not available), and a list of profile actions,
+ * including navigation to purchases, biometric toggle, language selection, and registration.
+ *
+ * @param onRegisterClick Callback invoked when the user clicks on the registration card.
+ * @param onPurchasesClick Callback invoked when the user clicks on the "My Purchases" card.
+ * @param scrollBehavior Scroll behavior applied to the top app bar.
+ * @param viewModel ViewModel that provides the profile state and handles user actions.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
@@ -115,6 +126,19 @@ fun ProfileScreen(
     }
 }
 
+/**
+ * Reusable composable card for profile items in the profile screen.
+ *
+ * Can display a title, an optional subtitle and warning message,
+ * and an optional trailing composable (e.g., icon or switch).
+ * If [onClick] is provided, the card becomes clickable.
+ *
+ * @param title Main title of the card.
+ * @param subtitle Optional subtitle displayed below the title.
+ * @param warning Optional warning message shown in red below the subtitle.
+ * @param trailing Optional composable displayed at the end of the row (e.g., switch or arrow).
+ * @param onClick Optional click handler for the entire card.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileCard(
